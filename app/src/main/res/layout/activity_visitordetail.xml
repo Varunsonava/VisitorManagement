@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".visitorDetail">
+
+    <TextView
+        android:id="@+id/heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Visitor Details:"
+        android:textSize="30dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="#000"
+        android:textStyle="bold"/>
+    <LinearLayout
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:padding="16dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/heading">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Full Name : "
+            android:textSize="20sp"
+            android:textColor="#000"
+            />
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/namefield"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:hint="Enter your Name here"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/contact"
+
+        android:layout_width="match_parent"
+        android:padding="16dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/name">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phone No. : "
+            android:textSize="20sp"
+            android:textColor="#000"
+            />
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/contactfield"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:hint="Enter Contact here"
+            android:inputType="number"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/host"
+        android:layout_width="match_parent"
+        android:padding="16dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/contact">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your Host: "
+            android:textSize="20sp"
+            android:textColor="#000"
+            />
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/hostfield"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:hint="Enter Host's Name here"
+            />
+    </LinearLayout>
+
+
+
+    <TextView
+        android:id="@+id/proceedBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:text=" PROCEED >"
+        android:textColor="#d88c1b"
+        android:layout_alignParentBottom="true"
+        android:padding="16dp"
+        android:textStyle="bold"
+        android:textSize="30sp"/>
+
+
+
+
+
+
+
+</RelativeLayout>

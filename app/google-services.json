@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "982153597640",
+    "firebase_url": "https://visitormanagement-f7309.firebaseio.com",
+    "project_id": "visitormanagement-f7309",
+    "storage_bucket": "visitormanagement-f7309.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:982153597640:android:8ab1168862dc9c19",
+        "android_client_info": {
+          "package_name": "com.example.thehighbrow.visitormanagement"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "982153597640-qb9a48foipg57p7dtbapsm2m4lae4sm7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCt45nyqdN6OC1pSHpqzd67c1nn_BdGOk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
