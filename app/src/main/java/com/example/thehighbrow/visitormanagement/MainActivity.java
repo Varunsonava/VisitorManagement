@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ProgressBar progressBar;
     private CheckBox visitorapp;
     private CheckBox adminapp;
-
+    String append = "visitor";
 
 
     // [START declare_auth]
@@ -47,10 +47,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Intent intent = getIntent();
+        append = intent.getStringExtra("Visitor");
 
-        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA)
+        int Permission_All = 1;
+        String[] Permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE};
+        if (!hasPermissions(this,Permissions)){
+            ActivityCompat.requestPermissions(this,Permissions, Permission_All);
+        }
+
+
+      /*  if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA)
                 == PackageManager.PERMISSION_DENIED)
             ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.CAMERA}, 1);
+        if (ContextCompat.checkSelfPermission(MainActivity.this,Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                ==PackageManager.PERMISSION_DENIED)
+            ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);*/
+
 
         mEmailField = findViewById(R.id.fieldEmail);
         mPasswordField = findViewById(R.id.fieldPassword);
@@ -67,13 +80,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         proceed.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 if (visitorapp.isChecked()){
-                    startActivity(new Intent(MainActivity.this,visitorActivity.class));
+                    startActivity(new Intent(MainActivity.this,GuestType.class));
                 }
                 else if(adminapp.isChecked()){
                     startActivity(new Intent(MainActivity.this,adminActivity.class));
+                }
+                else if(!visitorapp.isChecked()&& !adminapp.isChecked())
+                {
+                    startActivity(new Intent(MainActivity.this,GuestType.class));
+
                 }
             }
         });
@@ -107,6 +126,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                        // checking network status
+                        Log.e(TAG, "onComplete: inside createAccount");
                         ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
                         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
                         boolean isConnected = activeNetwork != null && activeNetwork.isConnected();
@@ -121,6 +141,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d(TAG, "createUserWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
+                                Log.e(TAG, "onComplete: inside tasksuccesful");
                                 updateUI(user);
                             } else {
                                 // If sign in fails, display a message to the user.
@@ -142,6 +163,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // [END create_user_with_email]
     }
 
+
+
     private void signIn(String email, String password) {
         Log.d(TAG, "signIn:" + email);
         if (!validateForm()) {
@@ -150,9 +173,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         findViewById(R.id.progressbar).setVisibility(View.VISIBLE);
         if (visitorapp.isChecked() && adminapp.isChecked()) {
-            Toast.makeText(this, "Select only one Admin or Visitor", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Select only one Visitor or Admin", Toast.LENGTH_LONG).show();
+            findViewById(R.id.progressbar).setVisibility(View.GONE);
         } else if (!visitorapp.isChecked() && !adminapp.isChecked()) {
-         Toast.makeText(this, "Select either admin or visitor", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Select either Visitor or Admin", Toast.LENGTH_LONG).show();
+            findViewById(R.id.progressbar).setVisibility(View.GONE);
 
         } else {
             // [START sign_in_with_email]
@@ -160,7 +185,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+                            ConnectivityManager cm = (ConnectivityManager) getApplicationContext()
+                                    .getSystemService(Context.CONNECTIVITY_SERVICE);
                             NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
                             boolean isConnected = activeNetwork != null && activeNetwork.isConnected();
                             if (isConnected) {
@@ -290,5 +316,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else if (i == R.id.verifyEmailButton) {
             sendEmailVerification();
         }
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        moveTaskToBack(true);
+        android.os.Process.killProcess(android.os.Process.myPid());
+        System.exit(1);
+    }
+
+    public static boolean hasPermissions(Context context, String... permissions){
+        for (String permission: permissions){
+            if (ActivityCompat.checkSelfPermission(context,permission)!=PackageManager.PERMISSION_GRANTED){
+                return false;
+            }
+        }
+        return true;
     }
 }

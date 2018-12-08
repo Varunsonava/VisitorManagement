@@ -14,7 +14,11 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class visitorDetail extends AppCompatActivity {
 
@@ -67,9 +71,19 @@ public class visitorDetail extends AppCompatActivity {
         if (!TextUtils.isEmpty(vname) && !TextUtils.isEmpty(vcontact) && !TextUtils.isEmpty(vhost))
             {
             String id = databaseVisitor.push().getKey();
+
+                Date d=new Date();
+                SimpleDateFormat sdf=new SimpleDateFormat("hh:mm a");
+                String currentDateTimeString = sdf.format(d);
+
+                String Date = DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(new Date()).toString();
+                Log.e("visitorDetail", "addVisitor: TIME = "+currentDateTimeString+"DATE = "+Date);
             Visitor visitor = new Visitor(vname,vcontact,vhost,photoUrl);
-        //    calendar.
-            databaseVisitor.child(id).setValue(visitor);
+
+
+                databaseVisitor.child(id).setValue(visitor);
+
+
             Toast.makeText(this, "Visitor Registered", Toast.LENGTH_SHORT).show();
             Intent intent= new Intent(visitorDetail.this,Welcome.class);
             intent.putExtra("vname",vname);

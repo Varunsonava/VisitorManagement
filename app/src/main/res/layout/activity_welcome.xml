@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#0b0b09"
     android:orientation="vertical"
     tools:context=".Welcome">
     <android.support.v7.widget.CardView
@@ -24,45 +25,42 @@
     </android.support.v7.widget.CardView>
 
     <TextView
+        android:id="@+id/hitext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#000"
+        android:textColor="#fff"
         android:textSize="30sp"
-        android:paddingBottom="16dp"
+
         android:paddingTop="16dp"
+        android:layout_centerHorizontal="true"
         android:paddingLeft="16dp"
+        android:typeface="monospace"
         android:text="Hi "
         android:layout_below="@id/imagecard"
-        android:layout_toLeftOf="@id/centreAlign"
+
         />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/name"
-        android:textColor="#d88c1b"
-        android:layout_below="@id/imagecard"
-        android:layout_toRightOf="@id/centreAlign"
+        android:textColor="#dc750d"
+        android:layout_below="@id/hitext"
+        android:layout_centerHorizontal="true"
         android:textAlignment="center"
         android:textSize="30sp"
-        android:paddingRight="16dp"
-        android:paddingTop="16dp"
-
+        android:typeface="serif"
+        android:paddingBottom="20dp"
         />
-    <TextView
-        android:id="@+id/centreAlign"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/imagecard"/>
-    <!-- android:layout_below="@id/imageView"-->
+
     <TextView
         android:layout_weight="1"
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="30sp"
-        android:textColor="#000"
+        android:textColor="#fff"
+
         android:textAlignment="center"
         android:layout_below="@+id/name"
         android:text="91SpringBoard Welcome's you!"
@@ -71,7 +69,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="FINISH"
-        android:background="#d88c1b"
+        android:background="#dc750d"
         android:layout_gravity="bottom"
         android:textColor="#fff"
         android:textSize="20sp"

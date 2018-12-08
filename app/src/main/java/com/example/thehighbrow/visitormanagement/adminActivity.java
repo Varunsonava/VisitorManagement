@@ -1,5 +1,6 @@
 package com.example.thehighbrow.visitormanagement;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -75,6 +76,7 @@ public class adminActivity extends AppCompatActivity {
                 for (DataSnapshot visitorSnapshot : dataSnapshot.getChildren() ){
                     Visitor visitor = visitorSnapshot.getValue(Visitor.class);
                     visitors.add(visitor);
+                    adapter.notifyDataSetChanged();
                     Log.e("MainActivity", "onDataChange: added visitor to visitors");
 
                 }
@@ -89,6 +91,13 @@ public class adminActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(adminActivity.this,MainActivity.class);
+        intent.putExtra("Visitor","adminEnd");
+        startActivity(intent);
+    }
     /*@Override
     protected void onResume() {
         super.onResume();
