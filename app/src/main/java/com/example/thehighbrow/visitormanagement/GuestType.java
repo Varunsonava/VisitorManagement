@@ -18,6 +18,7 @@ public class GuestType extends AppCompatActivity {
         CardView leadcard = findViewById(R.id.lead_card);
         CardView vendorcard = findViewById(R.id.vendor_card);
         CardView daycard = findViewById(R.id.day_card);
+        CardView couriercard = findViewById(R.id.courier_card);
 
         visitorcard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,6 +45,12 @@ public class GuestType extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(GuestType.this,vendorActivity.class));
+            }
+        });
+        couriercard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(GuestType.this, courierActivity.class));
             }
         });
 

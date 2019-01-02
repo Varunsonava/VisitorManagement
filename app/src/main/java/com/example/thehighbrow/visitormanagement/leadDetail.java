@@ -71,13 +71,11 @@ public class leadDetail extends AppCompatActivity {
 
             String Date = DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(new Date()).toString();
             Log.e("visitorDetail", "addVisitor: TIME = "+currentDateTimeString+"DATE = "+Date);
-//            Visitor visitor = new Visitor(dname,dcontact,dhost,photoUrl);
-            Lead lead = new Lead(dname,dcontact,demail,dreach,photoUrl);
+            Lead lead = new Lead(dname,dcontact,demail,dreach,photoUrl, currentDateTimeString,Date);
 
-//            databaseVisitor.child(id).setValue(visitor);
             databaseVisitor.child(id).setValue(lead);
 
-            Toast.makeText(this, "Visitor Registered", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Lead member Registered", Toast.LENGTH_SHORT).show();
             Intent intent= new Intent(leadDetail.this,Welcome.class);
             intent.putExtra("vname",dname);
             startActivity(intent);

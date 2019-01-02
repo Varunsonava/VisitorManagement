@@ -8,6 +8,8 @@ public class Lead {
     String email;
     String photoUrl;
     String reach;
+    String time;
+    String date;
     Uri photouri;
 
     void Lead(){
@@ -15,13 +17,14 @@ public class Lead {
     }
 
     public Lead(){}
-
-    public Lead(String name, String contact, String email,String reach, String photoUrl){
+    public Lead(String name, String contact, String email,String reach, String photoUrl,String time, String date){
         this.name = name;
         this.contact = contact;
         this.email = email;
         this.photoUrl= photoUrl;
         this.reach= reach;
+        this.time = time;
+        this.date = date;
 
 
     }
@@ -40,7 +43,21 @@ public class Lead {
         return photoUrl;
     }
 
+    public String getTime() {
+        return time;
+    }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public String getEmail() {
         return email;

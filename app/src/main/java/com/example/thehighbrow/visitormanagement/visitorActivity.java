@@ -11,6 +11,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
@@ -31,10 +33,12 @@ import com.squareup.picasso.Picasso;
 import java.io.ByteArrayOutputStream;
 
 public class visitorActivity extends AppCompatActivity {
-
+    String TAG= "visitorActivity";
     private ImageButton muploadbtn;
     private ImageView mImageView;
+    String durl;
     String path;
+    StorageReference filepath;
 
     private static final int CAMERA_REQUEST_CODE=1;
     private StorageReference mStorage;
@@ -77,6 +81,7 @@ public class visitorActivity extends AppCompatActivity {
         if (requestCode==CAMERA_REQUEST_CODE&&resultCode==RESULT_OK){
             mProgress.setMessage("Uploading Image...");
             mProgress.show();
+            Log.e(TAG, "onActivityResult: entered into function");
          //   Uri uri  = data.getData();
             Context inContext = visitorActivity.this;
             Bitmap btmp = (Bitmap)data.getExtras().get("data");
@@ -84,24 +89,43 @@ public class visitorActivity extends AppCompatActivity {
             btmp.compress(Bitmap.CompressFormat.JPEG,100,baos);
             byte[] idata=baos.toByteArray();
 
+            Log.e(TAG, "onActivityResult: 1");
+
             path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), btmp, "Title", null);
             final Uri uri = Uri.parse(path);
-//            Picasso.get().load(uri).into(photo);
-            final StorageReference filepath= mStorage.child("photos").child(uri.getLastPathSegment());
+            filepath = mStorage.child("photos").child(uri.getLastPathSegment());
+
+            Log.e(TAG, "onActivityResult: 2");
+
             final StorageTask<UploadTask.TaskSnapshot> taskSnapshotStorageTask = filepath.putFile(uri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     mProgress.dismiss();
-  //                  downloadUrl = mStorage.getDownloadUrl().toString();
-                   // downloadUrl = mStorage.child("photos").child(uri.getLastPathSegment()).getDownloadUrl().toString();
 
- //                   downloadUrl = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
+                    Log.e(TAG, "onSuccess: 3");
+
+            filepath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    Log.e(TAG, "onSuccess: ");
+                    //downloadUrl = mStorage.getDownloadUrl().toString();
+                    durl = String.valueOf(uri);
+                    Log.e("checking for dwnld URL", "onSuccess: "+durl);
 
                     Toast.makeText(visitorActivity.this, "Photo Captured, please proceed", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(visitorActivity.this, visitorDetail.class);
-                    intent.putExtra("photourl",path);
+                    intent.putExtra("photourl", durl);
+                    Log.e(TAG, "onSuccess: seding this url = " + durl);
                     startActivity(intent);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.e(TAG, "onFailure: ");
+                }
+            });
+
 
                 }
             });
@@ -110,48 +134,7 @@ public class visitorActivity extends AppCompatActivity {
 
 
 
-           /* final StorageReference ref = mStorage.child("photos").child(uri.getLastPathSegment());
-            UploadTask uploadTask = mStorage.putBytes(idata);
-            uploadTask = ref.putFile(uri);
 
-            Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                @Override
-                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                    if (!task.isSuccessful()) {
-                        throw task.getException();
-                    }
-
-                    // Continue with the task to get the download URL
-
-                    return ref.getDownloadUrl();
-
-                }
-            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                @Override
-                public void onComplete(@NonNull Task<Uri> task) {
-                    if (task.isSuccessful()) {
-                        Uri downloadUri = task.getResult();
-                    } else {
-                        // Handle failures
-                        // ...
-                    }
-                }
-            });*/
-
-
-
-
-
-
-            /*TextView textView = findViewById(R.id.proceedtext);
-            textView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(visitorActivity.this, visitorDetail.class);
-                    intent.putExtra("photourl",path);
-                    startActivity(intent);
-                }
-            });*/
         }
     }
 }

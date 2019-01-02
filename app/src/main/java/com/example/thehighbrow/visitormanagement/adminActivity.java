@@ -2,11 +2,19 @@ package com.example.thehighbrow.visitormanagement;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TableLayout;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -17,79 +25,72 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
+
 public class adminActivity extends AppCompatActivity {
 
     RecyclerView recyclerView ;
     RecyclerView.Adapter adapter;
+    ProgressBar progressBar;
     DatabaseReference databaseVisitor;
     ArrayList<Visitor>visitors;
+    String TAG="adminActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
 
-        databaseVisitor = FirebaseDatabase.getInstance().getReference("visitor");
-        recyclerView= findViewById(R.id.recyclerView);
-
-        visitors = new ArrayList<Visitor>();
-
- //       Visitor visitor = new Visitor("","","","");
-  //      visitors.add(visitor);
-
-        //recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        LinearLayoutManager mlm = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(mlm);
-        mlm.setReverseLayout(true);
-        mlm.setStackFromEnd(true);
-        adapter=new VisitorAdapter(visitors);
-        recyclerView.setAdapter(adapter);
-        /*databaseVisitor.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        MyViewPagerAdapter myViewPagerAdapter = new MyViewPagerAdapter(getSupportFragmentManager());
+        ViewPager viewPager = findViewById(R.id.viewPager);
+        viewPager.setAdapter(myViewPagerAdapter);
+        TabLayout tabLayout = findViewById(R.id.tabLayout);
+        tabLayout.setupWithViewPager(viewPager);
 
 
-                for (DataSnapshot visitorSnapshot : dataSnapshot.getChildren() ){
-                    Visitor visitor = visitorSnapshot.getValue(Visitor.class);
-                    visitors.add(visitor);
-                    Log.e("MainActivity", "onDataChange: added visitor to visitors");
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(adminActivity.this, "Problem fetching databse", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-*/
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        databaseVisitor.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+    class MyViewPagerAdapter extends FragmentPagerAdapter {
 
+        public MyViewPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
 
-                for (DataSnapshot visitorSnapshot : dataSnapshot.getChildren() ){
-                    Visitor visitor = visitorSnapshot.getValue(Visitor.class);
-                    visitors.add(visitor);
-                    adapter.notifyDataSetChanged();
-                    Log.e("MainActivity", "onDataChange: added visitor to visitors");
-
-                }
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position) {
+                case 0:
+                    return "Visitors";
+                case 1:
+                    return "Day Passes";
+                case 2:
+                    return "91 Lead";
+                case 3:
+                    return "Vendors";
+                case 4:
+                    return "Couriers";
+                default:
+                    return "noTitle";
             }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(adminActivity.this, "Problem fetching databse", Toast.LENGTH_SHORT).show();
+        }
 
-            }
-        });
+        @Override
+        public Fragment getItem(int position) {
+            Fragment fragment = new MyFragment();
+            Bundle bundle = new Bundle();
+            bundle.putInt("pos", position);
+            fragment.setArguments(bundle);
+            return fragment;
+        }
 
+        @Override
+        public int getCount() {
+            return 5;
+        }
     }
+
+
 
     @Override
     public void onBackPressed() {
@@ -98,27 +99,5 @@ public class adminActivity extends AppCompatActivity {
         intent.putExtra("Visitor","adminEnd");
         startActivity(intent);
     }
-    /*@Override
-    protected void onResume() {
-        super.onResume();
-        databaseVisitor.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-
-                for (DataSnapshot visitorSnapshot : dataSnapshot.getChildren() ){
-                    Visitor visitor = visitorSnapshot.getValue(Visitor.class);
-                    visitors.add(visitor);
-                    Log.e("MainActivity", "onDataChange: added visitor to visitors");
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(adminActivity.this, "Problem fetching databse", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-    }*/
 }

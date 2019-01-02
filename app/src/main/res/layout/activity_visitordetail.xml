@@ -123,13 +123,28 @@
                 android:textSize="20sp"
                 android:textColor="#000"
                 />
-            <android.support.v7.widget.AppCompatEditText
+            <AutoCompleteTextView
+                android:id="@+id/autoCompleteTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/textView"
+                android:ems="100"
+                android:dropDownSelector="#f3d2a5"
+
+                android:hint="Enter Host Here">
+
+                <requestFocus />
+            </AutoCompleteTextView>
+
+            <!--<android.support.v7.widget.AppCompatEditText
                 android:id="@+id/hostfield"
                 android:layout_width="250dp"
                 android:typeface="serif"
                 android:layout_height="wrap_content"
                 android:hint="Enter Host's Name here"
-                />
+                />-->
         </LinearLayout>
     </android.support.v7.widget.CardView>
 

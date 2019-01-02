@@ -9,6 +9,8 @@ public class Visitor {
     String host;
     String photoUrl;
     Uri photouri;
+    String time;
+    String date;
 
     void Visitor(){
 
@@ -16,11 +18,13 @@ public class Visitor {
 
     public Visitor(){}
     
-    public Visitor(String name, String contact, String host, String photoUrl){
+    public Visitor(String name, String contact, String host, String photoUrl, String time, String date){
         this.name = name;
         this.contact = contact;
         this.host = host;
         this.photoUrl= photoUrl;
+        this.time=time;
+        this.date=date;
     }
 
 
@@ -38,6 +42,22 @@ public class Visitor {
 
     public String getPhotoUrl() {
         return photoUrl;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public void setName(String name) {
