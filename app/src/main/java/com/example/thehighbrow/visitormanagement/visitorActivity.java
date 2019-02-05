@@ -91,7 +91,7 @@ public class visitorActivity extends AppCompatActivity {
 
             Log.e(TAG, "onActivityResult: 1");
 
-          //  path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), btmp, "Title", null);
+            path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), btmp, "Title", null);
             final Uri uri = Uri.parse(path);
             filepath = mStorage.child("photos").child(uri.getLastPathSegment());
 
