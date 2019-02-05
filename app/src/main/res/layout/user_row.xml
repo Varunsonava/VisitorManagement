@@ -25,7 +25,7 @@
             <ImageView
                 android:id="@+id/visitorphoto"
                 android:layout_width="140dp"
-                android:layout_height="175dp"
+                android:layout_height="185dp"
                 android:scaleX="1.25"
                 android:scaleY="0.90" />
 
@@ -33,6 +33,7 @@
         <LinearLayout
             android:id="@+id/ll1"
             android:layout_width="match_parent"
+            android:layout_marginLeft="15dp"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
@@ -75,6 +76,27 @@
                     android:padding="4dp"
                     android:id="@+id/contactfield"
                     android:hint="Contact"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Companions : "
+                    android:textColor="#d88c1b"
+                    android:padding="4dp"
+                    android:textSize="16sp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/companionfield"
+                    android:textSize="16sp"
+                    android:textColor="#000"
+                    android:padding="4dp"
+                    android:text="-"/>
             </LinearLayout>
 
 
@@ -138,6 +160,26 @@
                     android:textColor="#000"
                     android:padding="4dp"
                     android:hint="Date"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Exit Time : "
+                    android:textColor="#d88c1b"
+                    android:padding="4dp"
+                    android:textSize="16sp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/outtimefield"
+                    android:textSize="16sp"
+                    android:textColor="#000"
+                    android:padding="4dp"
+                    android:hint="Exit not registered"/>
             </LinearLayout>
 
 

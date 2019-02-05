@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_weight="1.55"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
@@ -41,7 +41,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2">
+        android:layout_weight="2.45">
         <LinearLayout
             android:id="@+id/emailPasswordFields"
             android:layout_width="match_parent"
@@ -49,26 +49,26 @@
             android:layout_alignParentStart="true"
             android:layout_marginStart="0dp"
             android:layout_marginTop="50dp"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
 
             <EditText
                 android:id="@+id/fieldEmail"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/emailPasswordFields"
-                android:layout_marginBottom="-50dp"
                 android:layout_weight="1"
-                android:hint="email"
+                android:hint="Email"
                 android:inputType="textEmailAddress" />
 
             <EditText
                 android:id="@+id/fieldPassword"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
+                android:layout_marginTop="8dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="password"
+                android:hint="Password"
                 android:inputType="textPassword" />
         </LinearLayout>
 
@@ -79,24 +79,22 @@
             android:layout_below="@+id/endselection"
             android:layout_alignParentStart="true"
             android:layout_marginTop="81dp"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
 
             <Button
                 android:id="@+id/emailSignInButton"
                 style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="Sign IN" />
 
             <Button
                 android:id="@+id/emailCreateAccountButton"
                 style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="Sign up" />
 
         </LinearLayout>
@@ -131,14 +129,16 @@
 
 
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/signedInButtons"
+            android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:orientation="horizontal"
-            android:paddingLeft="16dp"
             android:layout_marginTop="50dp"
+            android:orientation="vertical"
+            android:paddingLeft="16dp"
+            android:layout_marginBottom="45dp"
             android:paddingRight="16dp"
             android:visibility="gone"
             android:weightSum="2.0">
@@ -146,40 +146,39 @@
             <Button
                 android:id="@+id/signOutButton"
                 style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.0"
                 android:text="Sign out" />
 
             <Button
                 android:id="@+id/verifyEmailButton"
                 style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:text="Verify email"/>
+                android:text="Verify email" />
 
 
         </LinearLayout>
+
         <Button
             android:id="@+id/proceed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="  PROCEED  "
             style="@style/Widget.AppCompat.Button.Colored"
-            android:textColor="#fff"
-            android:textSize="18sp"
-            android:layout_below="@+id/xploryologo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="113dp"
+            android:layout_marginRight="16dp"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:layout_centerHorizontal="true"/>
+            android:text="  PROCEED  " />
 
 
         <ProgressBar
             android:id="@+id/progressbar"
-            android:layout_below="@id/emailPasswordButtons"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="250dp"
             android:layout_centerHorizontal="true"/>
 
 

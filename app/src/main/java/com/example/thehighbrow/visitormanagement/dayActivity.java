@@ -10,6 +10,7 @@ import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraDevice;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -20,6 +21,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -34,7 +36,7 @@ public class dayActivity extends AppCompatActivity {
     private ImageButton muploadbtn;
     private ImageView mImageView;
     String path;
-
+    String durl;
     private static final int CAMERA_REQUEST_CODE=1;
     private StorageReference mStorage;
     private ProgressDialog mProgress;
@@ -85,72 +87,34 @@ public class dayActivity extends AppCompatActivity {
 
             path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), btmp, "Title", null);
             final Uri uri = Uri.parse(path);
-//            Picasso.get().load(uri).into(photo);
             final StorageReference filepath= mStorage.child("photos").child(uri.getLastPathSegment());
             final StorageTask<UploadTask.TaskSnapshot> taskSnapshotStorageTask = filepath.putFile(uri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             mProgress.dismiss();
-                            //                  downloadUrl = mStorage.getDownloadUrl().toString();
-                            // downloadUrl = mStorage.child("photos").child(uri.getLastPathSegment()).getDownloadUrl().toString();
 
-                            //                   downloadUrl = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
+                            filepath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
 
-                            Toast.makeText(dayActivity.this, "Photo Captured, please proceed", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(dayActivity.this, dayDetail.class);
-                            intent.putExtra("photourl",path);
-                            startActivity(intent);
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    durl = String.valueOf(uri);
+                                    Toast.makeText(dayActivity.this, "Photo Captured, please proceed", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(dayActivity.this, dayDetail.class);
+                                    intent.putExtra("photourl",durl);
+                                    startActivity(intent);
+
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+
+                                }
+                            });
 
                         }
                     });
 
-
-
-
-
-           /* final StorageReference ref = mStorage.child("photos").child(uri.getLastPathSegment());
-            UploadTask uploadTask = mStorage.putBytes(idata);
-            uploadTask = ref.putFile(uri);
-
-            Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                @Override
-                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                    if (!task.isSuccessful()) {
-                        throw task.getException();
-                    }
-
-                    // Continue with the task to get the download URL
-
-                    return ref.getDownloadUrl();
-
-                }
-            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                @Override
-                public void onComplete(@NonNull Task<Uri> task) {
-                    if (task.isSuccessful()) {
-                        Uri downloadUri = task.getResult();
-                    } else {
-                        // Handle failures
-                        // ...
-                    }
-                }
-            });*/
-
-
-
-
-
-
-            /*TextView textView = findViewById(R.id.proceedtext);
-            textView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(visitorActivity.this, visitorDetail.class);
-                    intent.putExtra("photourl",path);
-                    startActivity(intent);
-                }
-            });*/
         }
     }
 }

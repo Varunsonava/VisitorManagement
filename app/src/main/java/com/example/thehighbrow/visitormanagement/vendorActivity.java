@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -28,7 +30,7 @@ public class vendorActivity extends AppCompatActivity {
     private ImageButton muploadbtn;
     private ImageView mImageView;
     String path;
-
+    String vurl;
     private static final int CAMERA_REQUEST_CODE = 1;
     private StorageReference mStorage;
     private ProgressDialog mProgress;
@@ -87,15 +89,24 @@ public class vendorActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             mProgress.dismiss();
-                            //                  downloadUrl = mStorage.getDownloadUrl().toString();
-                            // downloadUrl = mStorage.child("photos").child(uri.getLastPathSegment()).getDownloadUrl().toString();
+                            filepath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    vurl = String.valueOf(uri);
 
-                            //                   downloadUrl = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
+                                    Toast.makeText(vendorActivity.this, "Photo Captured, please proceed", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(vendorActivity.this, vendorDetail.class);
+                                    intent.putExtra("photourl", vurl);
+                                    startActivity(intent);
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
 
-                            Toast.makeText(vendorActivity.this, "Photo Captured, please proceed", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(vendorActivity.this, vendorDetail.class);
-                            intent.putExtra("photourl", path);
-                            startActivity(intent);
+                                }
+                            });
+
+
 
                         }
                     });

@@ -71,15 +71,14 @@ public class dayDetail extends AppCompatActivity {
 
             String Date = DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(new Date()).toString();
             Log.e("visitorDetail", "addVisitor: TIME = "+currentDateTimeString+"DATE = "+Date);
-//            Visitor visitor = new Visitor(dname,dcontact,dhost,photoUrl);
-            DayVisitor dayVisitor = new DayVisitor(dname,dcontact,demail,dgst,dinvoice,photoUrl);
+            DayVisitor dayVisitor = new DayVisitor(dname,dcontact,demail,dgst,dinvoice,photoUrl,currentDateTimeString,Date,id,"");
 
-//            databaseVisitor.child(id).setValue(visitor);
             databaseVisitor.child(id).setValue(dayVisitor);
 
             Toast.makeText(this, "Visitor Registered", Toast.LENGTH_SHORT).show();
             Intent intent= new Intent(dayDetail.this,Welcome.class);
             intent.putExtra("vname",dname);
+            intent.putExtra("id",id);
             startActivity(intent);
         }
         else

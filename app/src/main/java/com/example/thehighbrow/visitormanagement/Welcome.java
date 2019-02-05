@@ -15,6 +15,11 @@ public class Welcome extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
         Intent intent= getIntent();
         String vname;
+        String id;
+        id=intent.getStringExtra("id");
+        TextView idview = findViewById(R.id.idDisplay);
+        idview.setText(id);
+
         vname=intent.getStringExtra("vname");
         vname.toUpperCase();
 

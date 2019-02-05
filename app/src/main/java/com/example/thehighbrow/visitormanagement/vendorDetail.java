@@ -78,7 +78,7 @@ public class vendorDetail extends AppCompatActivity implements AdapterView.OnIte
             String Date = DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(new Date()).toString();
             Log.e("visitorDetail", "addVisitor: TIME = "+currentDateTimeString+"DATE = "+Date);
 //            Visitor visitor = new Visitor(dname,dcontact,dhost,photoUrl);
-            Vendor vendor = new Vendor(dname,dcontact,host,photoUrl);
+            Vendor vendor = new Vendor(dname,dcontact,host,photoUrl,currentDateTimeString, Date,id,"");
 
 //            databaseVisitor.child(id).setValue(visitor);
             databaseVisitor.child(id).setValue(vendor);

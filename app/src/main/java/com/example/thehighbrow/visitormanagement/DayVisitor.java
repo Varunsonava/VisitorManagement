@@ -9,22 +9,27 @@ public class DayVisitor {
     String photoUrl;
     String gst;
     String invoice;
-    Uri photouri;
-
+    String time;
+    String id;
+    String date;
+    String outtime;
     void dayVisitor(){
 
     }
 
     public DayVisitor(){}
 
-    public DayVisitor(String name, String contact, String email,String gst, String invoice, String photoUrl){
+    public DayVisitor(String name, String contact, String email,String gst, String invoice, String photoUrl, String time, String date, String id, String outtime){
         this.name = name;
         this.contact = contact;
         this.email = email;
         this.photoUrl= photoUrl;
         this.gst= gst;
         this.invoice= invoice;
-
+        this.time = time;
+        this.date = date;
+        this.id=id;
+        this.outtime=outtime;
     }
 
 
@@ -36,6 +41,29 @@ public class DayVisitor {
         return contact;
     }
 
+    public String getTime() {
+        return time;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getOuttime() {
+        return outtime;
+    }
+
+    public void setOuttime(String outtime) {
+        this.outtime = outtime;
+    }
 
     public String getPhotoUrl() {
         return photoUrl;
@@ -43,6 +71,14 @@ public class DayVisitor {
 
     public String getGst() {
         return gst;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getInvoice() {

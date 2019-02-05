@@ -65,6 +65,25 @@
         android:layout_below="@+id/name"
         android:text="91SpringBoard Welcome's you!"
         android:padding="16dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/id"
+        android:padding="16dp"
+        android:layout_above="@+id/finish"
+        android:text="UniqueID:"
+        android:textSize="20sp"
+        android:textColor="#fff"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/idDisplay"
+        android:layout_toRightOf="@+id/id"
+        android:paddingBottom="16dp"
+        android:textSize="20sp"
+        android:textColor="#fff"
+        android:layout_above="@+id/finish"
+        />
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

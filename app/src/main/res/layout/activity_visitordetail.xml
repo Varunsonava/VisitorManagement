@@ -112,31 +112,47 @@
         <LinearLayout
             android:id="@+id/host"
             android:layout_width="match_parent"
-            android:padding="16dp"
             android:layout_height="wrap_content"
-            >
+            android:padding="16dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Your Host: "
-                android:textSize="20sp"
+                android:text="Your Host:"
                 android:textColor="#000"
-                />
-            <AutoCompleteTextView
-                android:id="@+id/autoCompleteTextView"
+                android:layout_marginTop="10dp"
+                android:textSize="20sp" />
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/textView"
-                android:ems="100"
-                android:dropDownSelector="#f3d2a5"
+                android:orientation="vertical">
 
-                android:hint="Enter Host Here">
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textView"
+                    android:layout_alignParentLeft="true"
+                    android:dropDownWidth="match_parent"
+                    android:dropDownSelector="#f3d2a5"
+                    android:ems="100"
+                    android:hint="Enter Host Company"
 
-                <requestFocus />
-            </AutoCompleteTextView>
+                    android:textSize="20sp">
+
+
+                    <requestFocus />
+                </AutoCompleteTextView>
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter here if host not visible above "
+                    />
+
+            </LinearLayout>
+
+
+
 
             <!--<android.support.v7.widget.AppCompatEditText
                 android:id="@+id/hostfield"
@@ -146,6 +162,43 @@
                 android:hint="Enter Host's Name here"
                 />-->
         </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:id="@+id/card4"
+        app:cardCornerRadius="40dp"
+        app:cardBackgroundColor="#f3d2a5"
+        app:cardElevation="5dp"
+        android:padding="16dp"
+        android:layout_below="@id/card3">
+
+        <LinearLayout
+            android:id="@+id/companions"
+            android:layout_width="match_parent"
+            android:padding="16dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="#000"
+                android:text="No. of Companions : "
+                />
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/companionfield"
+                android:layout_width="250dp"
+                android:typeface="serif"
+                android:layout_height="wrap_content"
+                android:hint="Skip if alone"
+                android:inputType="number"
+                />
+        </LinearLayout>
+
     </android.support.v7.widget.CardView>
 
 

@@ -28,6 +28,8 @@ internal class VisitorAdapter(var visitors: ArrayList<Visitor>) : RecyclerView.A
         viewHolder.host.text = visitors[i].getHost()
         viewHolder.time.text = visitors[i].getTime()
         viewHolder.date.text = visitors[i].getDate()
+        viewHolder.companion.text = visitors[i].getCompanion()
+        viewHolder.outtime.text = visitors[i].getOuttime()
 
         //      String purl = visitors.get(i).getPhotoUrl();
         /*   if (Uri.parse(purl)!=null){
@@ -55,6 +57,8 @@ internal class VisitorAdapter(var visitors: ArrayList<Visitor>) : RecyclerView.A
         var photo: ImageView
         var time: TextView
         var date:TextView
+        var companion:TextView
+        var outtime:TextView
 
         init {
             name = itemView.findViewById(R.id.namefield)
@@ -63,7 +67,8 @@ internal class VisitorAdapter(var visitors: ArrayList<Visitor>) : RecyclerView.A
             photo = itemView.findViewById(R.id.visitorphoto)
             time = itemView.findViewById(R.id.timefield)
             date = itemView.findViewById(R.id.datefield)
-
+            companion = itemView.findViewById(R.id.companionfield)
+            outtime = itemView.findViewById(R.id.outtimefield)
 
 
         }

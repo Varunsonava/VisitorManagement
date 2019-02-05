@@ -92,24 +92,20 @@ public class leadActivity extends AppCompatActivity {
                             filepath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
-//                                    Log.e(TAG, "onSuccess: ");
-                                    //downloadUrl = mStorage.getDownloadUrl().toString();
-                                    durl = String.valueOf(uri);
+                                     durl = String.valueOf(uri);
                                     Log.e("checking for dwnld URL", "onSuccess: " + durl);
 
                                     Toast.makeText(leadActivity.this, "Photo Captured, please proceed", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(leadActivity.this, leadDetail.class);
                                     intent.putExtra("photourl", durl);
-//                                    Log.e(TAG, "onSuccess: seding this url = " + durl);
                                     startActivity(intent);
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    //                                  Log.e(TAG, "onFailure: ");
                                 }
 
-//
+
 
                             });
                         }

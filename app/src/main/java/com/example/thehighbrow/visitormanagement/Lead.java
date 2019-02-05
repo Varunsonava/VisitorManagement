@@ -10,14 +10,16 @@ public class Lead {
     String reach;
     String time;
     String date;
+    String outtime;
     Uri photouri;
+    String id;
 
     void Lead(){
 
     }
 
     public Lead(){}
-    public Lead(String name, String contact, String email,String reach, String photoUrl,String time, String date){
+    public Lead(String name, String contact, String email,String reach, String photoUrl,String time, String date, String id, String outtime){
         this.name = name;
         this.contact = contact;
         this.email = email;
@@ -25,6 +27,8 @@ public class Lead {
         this.reach= reach;
         this.time = time;
         this.date = date;
+        this.id=id;
+        this.outtime = outtime;
 
 
     }
@@ -41,6 +45,23 @@ public class Lead {
 
     public String getPhotoUrl() {
         return photoUrl;
+    }
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getOuttime() {
+        return outtime;
+    }
+
+    public void setOuttime(String outtime) {
+        this.outtime = outtime;
     }
 
     public String getTime() {
