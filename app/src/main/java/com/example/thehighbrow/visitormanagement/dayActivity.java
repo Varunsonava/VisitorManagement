@@ -82,7 +82,7 @@ public class dayActivity extends AppCompatActivity {
             Context inContext = dayActivity.this;
             Bitmap btmp = (Bitmap)data.getExtras().get("data");
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            btmp.compress(Bitmap.CompressFormat.JPEG,100,baos);
+            btmp.compress(Bitmap.CompressFormat.JPEG,0,baos);
             byte[] idata=baos.toByteArray();
 
             path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), btmp, "Title", null);

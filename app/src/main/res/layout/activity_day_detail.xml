@@ -12,6 +12,7 @@
         android:id="@+id/heading"
         android:layout_centerHorizontal="true"
         app:cardBackgroundColor="#eb7905"
+        android:layout_marginTop="16dp"
         app:cardCornerRadius="40dp"
         android:layout_height="wrap_content">
         <TextView
@@ -70,6 +71,8 @@
             <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/namefield"
                 android:layout_width="250dp"
+                android:singleLine="true"
+                android:capitalize="words"
                 android:layout_height="wrap_content"
                 android:typeface="serif"
                 android:hint="Enter your Name here"
@@ -215,6 +218,8 @@
             <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/invoicefield"
                 android:layout_width="250dp"
+                android:singleLine="true"
+                android:capitalize="words"
                 android:typeface="serif"
                 android:layout_height="wrap_content"
                 android:hint="Enter name on invoice"

@@ -24,6 +24,17 @@
             />
     </android.support.v7.widget.CardView>
 
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/proceedBtn"
+        android:layout_below="@id/heading"
+        >
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -55,6 +66,8 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:typeface="serif"
+                android:singleLine="true"
+                android:capitalize="words"
                 android:hint="Enter your Name here"
                 />
         </LinearLayout>
@@ -201,7 +214,8 @@
 
     </android.support.v7.widget.CardView>
 
-
+        </RelativeLayout>
+    </ScrollView>
 
 
 

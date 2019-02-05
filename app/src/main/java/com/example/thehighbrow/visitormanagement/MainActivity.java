@@ -147,7 +147,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 // If sign in fails, display a message to the user.
                                 Log.w(TAG, "createUserWithEmail:failure", task.getException());
                                 Toast.makeText(MainActivity.this, "Authentication failed.",
-                                        Toast.LENGTH_SHORT).show();
+                                        Toast.LENGTH_LONG).show();
+
+
                                 updateUI(null);
                             }
                         }
@@ -204,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 }
                             }
                             else
-                                Toast.makeText(MainActivity.this, "Check Internet Connection", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, "Check Internet Connection", Toast.LENGTH_LONG).show();
 
                             // [START_EXCLUDE]
                             if (!task.isSuccessful()) {

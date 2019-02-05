@@ -86,7 +86,7 @@ public class visitorActivity extends AppCompatActivity {
             Context inContext = visitorActivity.this;
             Bitmap btmp = (Bitmap)data.getExtras().get("data");
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            btmp.compress(Bitmap.CompressFormat.JPEG,100,baos);
+            btmp.compress(Bitmap.CompressFormat.JPEG,0,baos);
             byte[] idata=baos.toByteArray();
 
             Log.e(TAG, "onActivityResult: 1");

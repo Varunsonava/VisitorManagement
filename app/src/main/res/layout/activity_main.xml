@@ -192,25 +192,26 @@
 
     <TextView
         android:id="@+id/powered"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="154dp"
+        android:layout_height="43dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="153dp"
-        android:layout_marginTop="0dp"
-        android:paddingLeft="10dp"
+        android:layout_marginStart="109dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginRight="-14dp"
         android:layout_toLeftOf="@id/belowlogo"
+        android:paddingLeft="0dp"
+
         android:paddingTop="10dp"
         android:paddingBottom="7dp"
-        android:paddingRight="7dp"
         android:text="Powered by"
         android:textAlignment="textEnd"
         android:textColor="#000" />
 
     <ImageView
         android:id="@+id/belowlogo"
-        android:layout_width="147dp"
-        android:layout_height="33dp"
+        android:layout_width="125dp"
+        android:layout_height="28dp"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="15dp"
