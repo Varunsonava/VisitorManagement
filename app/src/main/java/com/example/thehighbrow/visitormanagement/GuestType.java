@@ -25,34 +25,34 @@ public class GuestType extends AppCompatActivity {
         visitorcard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(GuestType.this,visitorActivity.class));
+                startActivity(new Intent(GuestType.this,visitorDetail.class));
             }
         });
 
         leadcard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(GuestType.this,leadActivity.class));
+                startActivity(new Intent(GuestType.this,leadDetail.class));
             }
         });
 
         daycard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(GuestType.this,dayActivity.class));
+                startActivity(new Intent(GuestType.this,dayDetail.class));
             }
         });
 
         vendorcard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(GuestType.this,vendorActivity.class));
+                startActivity(new Intent(GuestType.this,vendorDetail.class));
             }
         });
         couriercard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(GuestType.this, courierActivity.class));
+                startActivity(new Intent(GuestType.this, courierDetail.class));
             }
         });
         exitcard.setOnClickListener(new View.OnClickListener() {
