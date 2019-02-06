@@ -88,12 +88,13 @@
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sign IN" />
+                android:text="LOG IN" />
 
             <Button
                 android:id="@+id/emailCreateAccountButton"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
+                android:visibility="gone"
                 android:layout_height="wrap_content"
                 android:text="Sign up" />
 
@@ -155,6 +156,7 @@
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:text="Verify email" />
 
 
