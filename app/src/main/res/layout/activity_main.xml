@@ -201,7 +201,6 @@
         android:layout_marginRight="-14dp"
         android:layout_toLeftOf="@id/belowlogo"
         android:paddingLeft="0dp"
-
         android:paddingTop="10dp"
         android:paddingBottom="7dp"
         android:text="Powered by"

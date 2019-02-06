@@ -148,8 +148,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 Log.w(TAG, "createUserWithEmail:failure", task.getException());
                                 Toast.makeText(MainActivity.this, "Authentication failed.",
                                         Toast.LENGTH_LONG).show();
-
-
+                                    mEmailField.setError("Error");
                                 updateUI(null);
                             }
                         }
@@ -178,6 +177,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(this, "Select only one Visitor or Admin", Toast.LENGTH_LONG).show();
             findViewById(R.id.progressbar).setVisibility(View.GONE);
         } else if (!visitorapp.isChecked() && !adminapp.isChecked()) {
+
             Toast.makeText(this, "Select either Visitor or Admin", Toast.LENGTH_LONG).show();
             findViewById(R.id.progressbar).setVisibility(View.GONE);
 

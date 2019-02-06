@@ -83,6 +83,18 @@ public class leadDetail extends AppCompatActivity {
         }
         else
         {
+            if (name.getText().toString().trim().equalsIgnoreCase("")) {
+                name.setError("This field can not be blank");
+            }
+            if (contact.getText().toString().trim().equalsIgnoreCase("")) {
+                contact.setError("This field can not be blank");
+            }
+            if (reach.getText().toString().trim().equalsIgnoreCase("")) {
+                reach.setError("This field can not be blank");
+            }
+            if (email.getText().toString().trim().equalsIgnoreCase("")) {
+                email.setError("This field can not be blank");
+            }
             Toast.makeText(this, "All Fields Mandatory", Toast.LENGTH_LONG).show();
         }
     }

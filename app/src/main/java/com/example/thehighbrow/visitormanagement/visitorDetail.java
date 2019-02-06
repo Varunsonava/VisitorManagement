@@ -282,7 +282,7 @@ public class visitorDetail extends AppCompatActivity {
         String vhost = host.getText().toString().trim();
 */
 
-        if (!TextUtils.isEmpty(vname) && !TextUtils.isEmpty(vcontact) )
+        if (!TextUtils.isEmpty(vname) && !TextUtils.isEmpty(vcontact) && !  TextUtils.isEmpty(ahost) )
             {
             String id = databaseVisitor.push().getKey();
 
@@ -308,6 +308,14 @@ public class visitorDetail extends AppCompatActivity {
             }
         else
             {
+                if (contact.getText().toString().trim().equalsIgnoreCase("")) {
+                    contact.setError("This field can not be blank");
+                }
+                if (name.getText().toString().trim().equalsIgnoreCase("")) {
+                    name.setError("This field can not be blank");
+                }
+
+
             Toast.makeText(this, "Kindly Fill the Mandatory Fields ", Toast.LENGTH_LONG).show();
             }
     }

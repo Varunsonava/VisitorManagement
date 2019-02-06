@@ -63,7 +63,7 @@
                 />
             <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/namefield"
-                android:layout_width="250dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:typeface="serif"
                 android:singleLine="true"
@@ -100,12 +100,15 @@
                 />
             <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/contactfield"
-                android:layout_width="250dp"
+                android:layout_width="match_parent"
+                android:maxLength="10"
+
                 android:typeface="serif"
                 android:layout_height="wrap_content"
                 android:hint="Enter Contact here"
                 android:inputType="number"
                 />
+
         </LinearLayout>
 
     </android.support.v7.widget.CardView>
@@ -154,10 +157,13 @@
                     android:textSize="20sp">
 
 
+<!--
                     <requestFocus />
+-->
                 </AutoCompleteTextView>
                 <EditText
-                    android:layout_width="wrap_content"
+                    android:id="@+id/autoCompleteAlternate"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Enter here if host not visible above "
                     />
@@ -204,7 +210,7 @@
                 />
             <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/companionfield"
-                android:layout_width="250dp"
+                android:layout_width="match_parent"
                 android:typeface="serif"
                 android:layout_height="wrap_content"
                 android:hint="Skip if alone"
