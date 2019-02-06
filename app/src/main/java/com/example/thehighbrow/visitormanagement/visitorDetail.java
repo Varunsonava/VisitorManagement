@@ -30,6 +30,7 @@ public class visitorDetail extends AppCompatActivity {
     EditText name;
     EditText contact;
     String ahost;
+    EditText autoAlternate;
     EditText companions;
 
     EditText host;
@@ -238,7 +239,7 @@ public class visitorDetail extends AppCompatActivity {
         Intent intent = getIntent();
         photoUrl = intent.getStringExtra("photourl");
         Log.e(TAG, "onCreate: photo url = "+photoUrl);
-
+        autoAlternate = findViewById(R.id.autoCompleteAlternate);
         name=findViewById(R.id.namefield);
         contact=findViewById(R.id.contactfield);
         vhost = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
@@ -272,7 +273,7 @@ public class visitorDetail extends AppCompatActivity {
 
 
     private void addVisitor()
-    {
+    {   String valternate = autoAlternate.getText().toString().trim();
         String vname = name.getText().toString().trim();
         String vcontact = contact.getText().toString().trim();
         String vcompanions = companions.getText().toString().trim();
@@ -282,7 +283,7 @@ public class visitorDetail extends AppCompatActivity {
         String vhost = host.getText().toString().trim();
 */
 
-        if (!TextUtils.isEmpty(vname) && !TextUtils.isEmpty(vcontact) && !  TextUtils.isEmpty(ahost) )
+        if (!TextUtils.isEmpty(vname) && !TextUtils.isEmpty(vcontact) && (!TextUtils.isEmpty(ahost)||!TextUtils.isEmpty(valternate)) )
             {
             String id = databaseVisitor.push().getKey();
 
