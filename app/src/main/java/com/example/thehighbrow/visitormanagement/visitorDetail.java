@@ -46,6 +46,8 @@ public class visitorDetail extends AppCompatActivity {
     EditText contact;
     String ahost;
     EditText autoAlternate;
+    String Date;
+
     EditText companions;
 
     private ImageButton muploadbtn;
@@ -273,7 +275,11 @@ public class visitorDetail extends AppCompatActivity {
         vhost = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
         companions = findViewById(R.id.companionfield);
 
-        databaseVisitor = FirebaseDatabase.getInstance().getReference("visitor");
+        Date c = Calendar.getInstance().getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        String formattedDate = dateFormat.format(c);
+
+        databaseVisitor = FirebaseDatabase.getInstance().getReference("Noida Sec1/"+formattedDate+"/visitor");
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>
                 (this, android.R.layout.select_dialog_item, hostCompanies);
@@ -378,7 +384,7 @@ public class visitorDetail extends AppCompatActivity {
                 SimpleDateFormat sdf=new SimpleDateFormat("hh:mm a");
                 String currentDateTimeString = sdf.format(d);
 
-                String Date = DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(new Date());
+                Date = DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(new Date());
                 Log.e("visitorDetail", "addVisitor: TIME = "+currentDateTimeString+"DATE = "+Date);
 
             Visitor visitor = new Visitor(vname,vcontact,ahost,durl,currentDateTimeString,"",Date,vcompanions,id);

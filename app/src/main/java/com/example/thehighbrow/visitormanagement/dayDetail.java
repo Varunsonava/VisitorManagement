@@ -74,7 +74,11 @@ public class dayDetail extends AppCompatActivity {
         name=findViewById(R.id.namefield);
         contact=findViewById(R.id.contactfield);
         email=findViewById(R.id.emailfield);
-        databaseVisitor = FirebaseDatabase.getInstance().getReference("dayVisitor");
+
+        Date c = Calendar.getInstance().getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        String formattedDate = dateFormat.format(c);
+        databaseVisitor = FirebaseDatabase.getInstance().getReference("Noida Sec1/"+formattedDate+"/dayVisitor");
 
         submit=findViewById(R.id.proceedBtn);
         submit.setOnClickListener(new View.OnClickListener() {

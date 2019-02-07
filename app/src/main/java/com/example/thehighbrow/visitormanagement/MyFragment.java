@@ -54,7 +54,7 @@ public class MyFragment extends Fragment {
         int i = bundle.getInt("pos");
         if (i==0){
             v = inflater.inflate(R.layout.visitor_fragment,container,false);
-            databaseVisitor = FirebaseDatabase.getInstance().getReference("visitor");
+            databaseVisitor = FirebaseDatabase.getInstance().getReference("Noida Sec1/07-02-2019/visitor");
             recyclerView= v.findViewById(R.id.recyclerView);
             Context context = getContext();
             visitors = new ArrayList<Visitor>();
