@@ -2,6 +2,7 @@ package com.example.thehighbrow.visitormanagement;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,15 +13,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -318,7 +324,6 @@ public class MyFragment extends Fragment {
 
                             }
                         }
-
                     }
                 }
 
@@ -329,6 +334,67 @@ public class MyFragment extends Fragment {
                 }
             });
 
+
+        }
+        else if(i==5){
+            v = inflater.inflate(R.layout.csv_layout,container,false);
+            databaseVisitor = FirebaseDatabase.getInstance().getReference("Noida Sec1");
+            Button downloadbtn = v.findViewById(R.id.dbtn);
+
+            downloadbtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+
+                    databaseVisitor.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for (DataSnapshot visitorSnapshot : dataSnapshot.getChildren()) {
+                                //for (DataSnapshot dataSnapshot1:visitorSnapshot.child("08-02-2019").getChildren()) {
+                                    String text = visitorSnapshot.toString();
+                                    exporttxt(text);
+                               // }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Toast.makeText(getActivity(), "Problem fetching databse", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+
+
+
+                }
+
+                private void exporttxt(String text) {
+
+                        if(Environment.getExternalStorageState().equalsIgnoreCase("mounted"))//Check if Device Storage is present
+                        {
+                            try {
+                                File root = new File(Environment.getExternalStorageDirectory(), "VisitorsDatabase");//You might want to change this to the name of your app. (This is a folder that will be created to store all of your txt files)
+                                if (!root.exists()) {
+                                    root.mkdirs();
+                                }
+                                File myTxt = new File(root, "database.json"); //You might want to change the filename
+                                FileWriter writer = new FileWriter(myTxt);
+                                    Log.e(TAG, "exporttxt: "+text );
+                                    writer.append(text);//Writing the text
+                                writer.flush();
+                                writer.close();
+                                Toast.makeText(getContext(), "File exported", Toast.LENGTH_SHORT).show();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                                Toast.makeText(getContext(), "Error: "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        else
+                            Toast.makeText(getContext(), "Can't access device storage!", Toast.LENGTH_SHORT).show();
+
+                }
+            });
 
         }
         return v;
