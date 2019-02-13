@@ -71,7 +71,10 @@ public class leadDetail extends AppCompatActivity {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, CAMERA_REQUEST_CODE);
 
-        databaseVisitor = FirebaseDatabase.getInstance().getReference("91lead");
+        Date c = Calendar.getInstance().getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        String formattedDate = dateFormat.format(c);
+        databaseVisitor = FirebaseDatabase.getInstance().getReference("Noida Sec1/"+formattedDate+"/91lead");
 
 
         submit=findViewById(R.id.proceedBtn);

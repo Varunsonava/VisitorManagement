@@ -67,7 +67,11 @@ public class vendorDetail extends AppCompatActivity implements AdapterView.OnIte
         spinner = (Spinner) findViewById(R.id.spinner);
         name=findViewById(R.id.namefield);
         contact=findViewById(R.id.contactfield);
-        databaseVisitor = FirebaseDatabase.getInstance().getReference("vendor");
+
+        Date c = Calendar.getInstance().getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        String formattedDate = dateFormat.format(c);
+        databaseVisitor = FirebaseDatabase.getInstance().getReference("Noida Sec1/"+formattedDate+"/vendor");
 
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, CAMERA_REQUEST_CODE);

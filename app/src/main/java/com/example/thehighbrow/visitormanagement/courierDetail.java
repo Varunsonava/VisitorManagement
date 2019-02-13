@@ -68,7 +68,11 @@ public class courierDetail extends AppCompatActivity {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra("android.intent.extras.LENS_FACING_FRONT", 1);
         startActivityForResult(intent,CAMERA_REQUEST_CODE);
-        databaseVisitor = FirebaseDatabase.getInstance().getReference("courier");
+
+        Date c = Calendar.getInstance().getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        String formattedDate = dateFormat.format(c);
+        databaseVisitor = FirebaseDatabase.getInstance().getReference("Noida Sec1/"+formattedDate+"/courier");
 
         submit=findViewById(R.id.proceedBtn);
         submit.setOnClickListener(new View.OnClickListener() {

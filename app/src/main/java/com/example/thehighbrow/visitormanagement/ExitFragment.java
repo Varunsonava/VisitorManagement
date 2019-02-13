@@ -24,13 +24,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 
 import static android.view.View.VISIBLE;
 
 public class ExitFragment extends Fragment {
-
     RecyclerView recyclerView ;
     RecyclerView.Adapter adapter;
     ProgressBar progressBar;
@@ -45,12 +45,6 @@ public class ExitFragment extends Fragment {
     String dayid;
     String leadid;
     String vendorid;
-
-
-
-
-
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -60,15 +54,15 @@ public class ExitFragment extends Fragment {
         Log.e(TAG, "onCreateView: "+ i);
         String a = this.getArguments().getString("id");
         Log.e(TAG, "onCreateView: "+a);
+        Date c = Calendar.getInstance().getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        final String formattedDate = dateFormat.format(c);
+
         if (i==0){
             v = inflater.inflate(R.layout.exit_fragment,container,false);
-            FirebaseDatabase.getInstance().getReference("visitor");
+            FirebaseDatabase.getInstance().getReference("Noida Sec1");
             Log.e(TAG, "onCreateView: ");
-
-           /* if (FirebaseDatabase.getInstance().getReference("visitor").getKey()){
-                Log.e(TAG, "onCreateView: entered if");
-            }*/
-            databaseVisitor = FirebaseDatabase.getInstance().getReference("visitor");
+            databaseVisitor = FirebaseDatabase.getInstance().getReference("Noida Sec1");
             recyclerView= v.findViewById(R.id.recyclerView);
             final Context context = getContext();
             visitors = new ArrayList<Visitor>();
@@ -77,27 +71,7 @@ public class ExitFragment extends Fragment {
             recyclerView.setLayoutManager(mlm);
             mlm.setReverseLayout(true);
             mlm.setStackFromEnd(true);
-
             adapter=new ExitVisitorAdapter(visitors,context);
-
-
-
-          /*  recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
-                @Override
-                public boolean onInterceptTouchEvent(@NonNull RecyclerView recyclerView, @NonNull MotionEvent motionEvent) {
-                    return false;
-                }
-
-                @Override
-                public void onTouchEvent(@NonNull RecyclerView recyclerView, @NonNull MotionEvent motionEvent) {
-
-                }
-
-                @Override
-                public void onRequestDisallowInterceptTouchEvent(boolean b) {
-
-                }
-            });*/
             uid = getArguments().getString("id");
             Log.e(TAG, "onCreateView: received "+uid);
 
@@ -131,7 +105,8 @@ public class ExitFragment extends Fragment {
                         Log.e(TAG, "onLongClick: id received in fragment " + uid);
                         Visitor visitor = new Visitor();
                         visitor.setOuttime(currentDateTimeString);
-                        databaseVisitor.child(uid).child("outtime").setValue(currentDateTimeString);
+                        databaseVisitor.child(formattedDate).child("visitor").child(uid).child("outtime").setValue(currentDateTimeString);
+                        visitors.clear();
                     }
                     else
                     {
@@ -140,15 +115,10 @@ public class ExitFragment extends Fragment {
 
                 }
             }));
-
             recyclerView.setAdapter(adapter);
             Log.e(TAG, "onCreate: below llm");
-
-
             final View finalV = v;
             databaseVisitor.addValueEventListener(new ValueEventListener() {
-
-
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -157,14 +127,19 @@ public class ExitFragment extends Fragment {
 
 
                     for (DataSnapshot visitorSnapshot : dataSnapshot.getChildren()) {
-                        Log.e(TAG, "onDataChange: adding visitor to visitors");
-                        Visitor visitor = (Visitor) visitorSnapshot.getValue(Visitor.class);
+                        if (visitorSnapshot.hasChild("visitor")){
+                            for (DataSnapshot dataSnapshot1: visitorSnapshot.child("visitor").getChildren()){
+                                Log.e(TAG, "onDataChange: adding visitor to visitors");
+                                Visitor visitor = (Visitor) dataSnapshot1.getValue(Visitor.class);
+                              //  visitors.clear();
+                                visitors.add(visitor);
+                                adapter.notifyDataSetChanged();
+                                progressBar.setVisibility(View.GONE);
 
-                        visitors.add(visitor);
-                        adapter.notifyDataSetChanged();
-                        progressBar.setVisibility(View.GONE);
+                                Log.e("MainActivity", "onDataChange: added visitor to visitors");
 
-                        Log.e("MainActivity", "onDataChange: added visitor to visitors");
+                            }
+                        }
 
                     }
                 }
@@ -181,7 +156,7 @@ public class ExitFragment extends Fragment {
         else if (i==1){
 
             v = inflater.inflate(R.layout.exit_fragment,container,false);
-            databaseVisitor = FirebaseDatabase.getInstance().getReference("dayVisitor");
+            databaseVisitor = FirebaseDatabase.getInstance().getReference("Noida Sec1");
             recyclerView= v.findViewById(R.id.recyclerView);
             final Context context = getContext();
 
@@ -226,7 +201,9 @@ public class ExitFragment extends Fragment {
                         Log.e(TAG, "onLongClick: id received in fragment " + dayid);
                         Visitor visitor = new Visitor();
                         visitor.setOuttime(currentDateTimeString);
-                        databaseVisitor.child(dayid).child("outtime").setValue(currentDateTimeString);
+                        databaseVisitor.child(formattedDate).child("dayVisitor").child(dayid).child("outtime").setValue(currentDateTimeString);
+                        dayVisitors.clear();
+
                     }
                     else
                     {
@@ -253,16 +230,17 @@ public class ExitFragment extends Fragment {
 
 
                     for (DataSnapshot visitorSnapshot : dataSnapshot.getChildren()) {
-                        Log.e(TAG, "onDataChange: adding visitor to visitors");
+                        if (visitorSnapshot.hasChild(" dayVisitor")){
+                            for (DataSnapshot dataSnapshot1:visitorSnapshot.child("dayVisitor").getChildren()){
 
-                        DayVisitor dayVisitor = visitorSnapshot.getValue(DayVisitor.class);
-                        dayVisitors.add(dayVisitor);
-
-                        adapter.notifyDataSetChanged();
-                        progressBar.setVisibility(View.GONE);
-
-                        Log.e("MainActivity", "onDataChange: added visitor to visitors");
-
+                                Log.e(TAG, "onDataChange: adding visitor to visitors");
+                                DayVisitor dayVisitor = dataSnapshot1.getValue(DayVisitor.class);
+                                dayVisitors.add(dayVisitor);
+                                adapter.notifyDataSetChanged();
+                                progressBar.setVisibility(View.GONE);
+                                Log.e("MainActivity", "onDataChange: added visitor to visitors exiting");
+                            }
+                        }
                     }
                 }
 
@@ -280,7 +258,7 @@ public class ExitFragment extends Fragment {
 
 
             v = inflater.inflate(R.layout.exit_fragment,container,false);
-            databaseVisitor = FirebaseDatabase.getInstance().getReference("91lead");
+            databaseVisitor = FirebaseDatabase.getInstance().getReference("Noida Sec1");
             recyclerView= v.findViewById(R.id.recyclerView);
             final Context context = getContext();
 
@@ -327,7 +305,8 @@ public class ExitFragment extends Fragment {
                         //visitor.setOuttime(currentDateTimeString);
                         Lead lead = new Lead();
                         lead.setOuttime(currentDateTimeString);
-                        databaseVisitor.child(leadid).child("outtime").setValue(currentDateTimeString);
+                        databaseVisitor.child(formattedDate).child("91lead").child(leadid).child("outtime").setValue(currentDateTimeString);
+                        leads.clear();
                     }
                     else
                     {
@@ -354,15 +333,21 @@ public class ExitFragment extends Fragment {
 
 
                     for (DataSnapshot visitorSnapshot : dataSnapshot.getChildren()) {
-                        Log.e(TAG, "onDataChange: adding visitor to visitors");
+                        if (visitorSnapshot.hasChild("91lead")){
+                            for (DataSnapshot dataSnapshot1: visitorSnapshot.child("91lead").getChildren()){
 
-                        Lead lead = visitorSnapshot.getValue(Lead.class);
-                        leads.add(lead);
+                                Log.e(TAG, "onDataChange: adding visitor to visitors");
+                                Lead lead = dataSnapshot1.getValue(Lead.class);
+                                leads.add(lead);
 
-                        adapter.notifyDataSetChanged();
-                        progressBar.setVisibility(View.GONE);
+                                adapter.notifyDataSetChanged();
+                                progressBar.setVisibility(View.GONE);
 
-                        Log.e("MainActivity", "onDataChange: added visitor to visitors");
+                                Log.e("MainActivity", "onDataChange: added visitor to visitors");
+                            }
+
+
+                        }
 
                     }
                 }
@@ -378,7 +363,7 @@ public class ExitFragment extends Fragment {
         else if (i==3){
 
             v = inflater.inflate(R.layout.exit_fragment,container,false);
-            databaseVisitor = FirebaseDatabase.getInstance().getReference("vendor");
+            databaseVisitor = FirebaseDatabase.getInstance().getReference("Noida Sec1");
             recyclerView= v.findViewById(R.id.recyclerView);
             final Context context = getContext();
 
@@ -426,8 +411,8 @@ public class ExitFragment extends Fragment {
                         //visitor.setOuttime(currentDateTimeString);
                         Vendor vendor = new Vendor();
                         vendor.setOuttime(currentDateTimeString);
-                        databaseVisitor.child(vendorid).child("outtime").setValue(currentDateTimeString);
-                    }
+                        databaseVisitor.child(formattedDate).child("vendor").child(vendorid).child("outtime").setValue(currentDateTimeString);
+                        vendors.clear();                    }
                     else
                     {
                         Toast.makeText(context,"CLICK ON THE PHOTO FIRST",Toast.LENGTH_LONG);
@@ -454,15 +439,20 @@ public class ExitFragment extends Fragment {
 
 
                     for (DataSnapshot visitorSnapshot : dataSnapshot.getChildren()) {
-                        Log.e(TAG, "onDataChange: adding visitor to visitors");
+                        if (visitorSnapshot.hasChild("vendor")){
+                            for (DataSnapshot dataSnapshot1: visitorSnapshot.child("vendor").getChildren()){
+                                Log.e(TAG, "onDataChange: adding visitor to visitors");
 
-                        Vendor vendor = visitorSnapshot.getValue(Vendor.class);
-                        vendors.add(vendor);
+                                Vendor vendor = dataSnapshot1.getValue(Vendor.class);
+                                vendors.add(vendor);
 
-                        adapter.notifyDataSetChanged();
-                        progressBar.setVisibility(View.GONE);
+                                adapter.notifyDataSetChanged();
+                                progressBar.setVisibility(View.GONE);
 
-                        Log.e("MainActivity", "onDataChange: added visitor to visitors");
+                                Log.e("MainActivity", "onDataChange: added visitor to visitors");
+
+                            }
+                        }
 
                     }
                 }

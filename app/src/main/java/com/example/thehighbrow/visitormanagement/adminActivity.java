@@ -69,6 +69,8 @@ public class adminActivity extends AppCompatActivity {
                     return "Vendors";
                 case 4:
                     return "Couriers";
+                case 5:
+                    return "Download Database";
                 default:
                     return "noTitle";
             }
@@ -86,7 +88,7 @@ public class adminActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 5;
+            return 6;
         }
     }
 
