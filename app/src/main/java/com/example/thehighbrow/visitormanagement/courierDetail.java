@@ -52,6 +52,8 @@ public class courierDetail extends AppCompatActivity {
     private static final int CAMERA_REQUEST_CODE=1;
     private StorageReference mStorage;
     private ProgressDialog mProgress;
+    String formattedDate;
+
     String downloadUrl;
 
     @Override
@@ -71,7 +73,7 @@ public class courierDetail extends AppCompatActivity {
 
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        String formattedDate = dateFormat.format(c);
+        formattedDate = dateFormat.format(c);
         databaseVisitor = FirebaseDatabase.getInstance().getReference("Noida Sec1/"+formattedDate+"/courier");
 
         submit=findViewById(R.id.proceedBtn);
@@ -142,7 +144,7 @@ public class courierDetail extends AppCompatActivity {
             String Date = DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(new Date()).toString();
             Log.e("visitorDetail", "addVisitor: TIME = "+currentDateTimeString+"DATE = "+Date);
 //            Visitor visitor = new Visitor(dname,dcontact,dhost,photoUrl);
-            Courier Courier = new Courier(cname,ccontact,cdeliverto,curl,currentDateTimeString, Date,id);
+            Courier Courier = new Courier(cname,ccontact,cdeliverto,curl,currentDateTimeString, formattedDate,id);
 
 //            databaseVisitor.child(id).setValue(visitor);
             databaseVisitor.child(id).setValue(Courier);

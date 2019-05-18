@@ -54,6 +54,8 @@ public class dayDetail extends AppCompatActivity {
     private static final int CAMERA_REQUEST_CODE=1;
     private StorageReference mStorage;
     private ProgressDialog mProgress;
+    String formattedDate;
+
     String downloadUrl;
 
     @Override
@@ -77,7 +79,7 @@ public class dayDetail extends AppCompatActivity {
 
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        String formattedDate = dateFormat.format(c);
+        formattedDate = dateFormat.format(c);
         databaseVisitor = FirebaseDatabase.getInstance().getReference("Noida Sec1/"+formattedDate+"/dayVisitor");
 
         submit=findViewById(R.id.proceedBtn);
@@ -148,7 +150,7 @@ public class dayDetail extends AppCompatActivity {
 
             String Date = DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(new Date()).toString();
             Log.e("visitorDetail", "addVisitor: TIME = "+currentDateTimeString+"DATE = "+Date);
-            DayVisitor dayVisitor = new DayVisitor(dname,dcontact,demail,dgst,dinvoice,durl,currentDateTimeString,Date,id,"");
+            DayVisitor dayVisitor = new DayVisitor(dname,dcontact,demail,dgst,dinvoice,durl,currentDateTimeString,formattedDate,id,"");
 
             databaseVisitor.child(id).setValue(dayVisitor);
 

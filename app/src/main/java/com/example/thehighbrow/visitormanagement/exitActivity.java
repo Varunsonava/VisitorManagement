@@ -68,14 +68,29 @@ public class exitActivity extends AppCompatActivity {
             bundle.putInt("pos", position);
             fragment.setArguments(bundle);
             Intent i= getIntent();
+
             String uid = i.getStringExtra("id");
+            String udate = i.getStringExtra("date");
             bundle.putString("id",uid);
+            bundle.putString("date",udate);
+
             String dayid = i.getStringExtra("dayid");
+            String daydate = i.getStringExtra("daydate");
+            bundle.putString("daydate",daydate);
             bundle.putString("dayid",dayid);
+
             String leadid = i.getStringExtra("leadid");
+            String leaddate = i.getStringExtra("leaddate");
             bundle.putString("leadid",leadid);
+            bundle.putString("leaddate",leaddate);
+
+
             String vendorid = i.getStringExtra("vendorid");
+            String vendordate = i.getStringExtra("vendordate");
             bundle.putString("vendorid",vendorid);
+            bundle.putString("vendordate",vendordate);
+
+
             return fragment;
 
         }

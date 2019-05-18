@@ -14,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -45,6 +46,11 @@ public class ExitFragment extends Fragment {
     String dayid;
     String leadid;
     String vendorid;
+    String udate;
+    String daydate;
+    String vendordate;
+    String leaddate;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -53,7 +59,10 @@ public class ExitFragment extends Fragment {
         int i = bundle.getInt("pos");
         Log.e(TAG, "onCreateView: "+ i);
         String a = this.getArguments().getString("id");
-        Log.e(TAG, "onCreateView: "+a);
+        String d = this.getArguments().getString("date");
+
+
+        Log.e(TAG, "onCreateView: "+a+d);
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         final String formattedDate = dateFormat.format(c);
@@ -73,8 +82,11 @@ public class ExitFragment extends Fragment {
             mlm.setStackFromEnd(true);
             adapter=new ExitVisitorAdapter(visitors,context);
             uid = getArguments().getString("id");
+            udate = getArguments().getString("date");
             Log.e(TAG, "onCreateView: received "+uid);
+            Log.e(TAG, "date received in fragment is "+udate);
 
+            final View finalV1 = v;
             recyclerView.addOnItemTouchListener(new MyTouchListener(getContext(), recyclerView, new MyTouchListener.OnTouchActionListener() {
                 @Override
                 public void onLeftSwipe(View view, int position) {
@@ -103,9 +115,12 @@ public class ExitFragment extends Fragment {
                    // String s = getActivity().getIntent().getExtras().getString("uid");
                     if (uid!=null) {
                         Log.e(TAG, "onLongClick: id received in fragment " + uid);
+                        Log.e(TAG,"onLongClick: date received in fragment "+ udate);
                         Visitor visitor = new Visitor();
+                     //   TextView textView = finalV1.findViewById(R.id.outdatefield);
+                       // textView.setText(formattedDate);
                         visitor.setOuttime(currentDateTimeString);
-                        databaseVisitor.child(formattedDate).child("visitor").child(uid).child("outtime").setValue(currentDateTimeString);
+                        databaseVisitor.child(udate).child("visitor").child(uid).child("outtime").setValue(currentDateTimeString);
                         visitors.clear();
                     }
                     else
@@ -171,7 +186,7 @@ public class ExitFragment extends Fragment {
             adapter = new ExitDayAdapter(dayVisitors,context);
 
             dayid = getArguments().getString("dayid");
-
+            daydate = getArguments().getString("daydate");
             recyclerView.addOnItemTouchListener(new MyTouchListener(getContext(), recyclerView, new MyTouchListener.OnTouchActionListener() {
                 @Override
                 public void onLeftSwipe(View view, int position) {
@@ -201,7 +216,7 @@ public class ExitFragment extends Fragment {
                         Log.e(TAG, "onLongClick: id received in fragment " + dayid);
                         Visitor visitor = new Visitor();
                         visitor.setOuttime(currentDateTimeString);
-                        databaseVisitor.child(formattedDate).child("dayVisitor").child(dayid).child("outtime").setValue(currentDateTimeString);
+                        databaseVisitor.child(daydate).child("dayVisitor").child(dayid).child("outtime").setValue(currentDateTimeString);
                         dayVisitors.clear();
 
                     }
@@ -230,7 +245,7 @@ public class ExitFragment extends Fragment {
 
 
                     for (DataSnapshot visitorSnapshot : dataSnapshot.getChildren()) {
-                        if (visitorSnapshot.hasChild(" dayVisitor")){
+                        if (visitorSnapshot.hasChild("dayVisitor")){
                             for (DataSnapshot dataSnapshot1:visitorSnapshot.child("dayVisitor").getChildren()){
 
                                 Log.e(TAG, "onDataChange: adding visitor to visitors");
@@ -273,7 +288,7 @@ public class ExitFragment extends Fragment {
             adapter = new ExitLeadAdapter(leads, context);
 
             leadid = getArguments().getString("leadid");
-
+            leaddate = getArguments().getString("leaddate");
             recyclerView.addOnItemTouchListener(new MyTouchListener(getContext(), recyclerView, new MyTouchListener.OnTouchActionListener() {
                 @Override
                 public void onLeftSwipe(View view, int position) {
@@ -305,7 +320,7 @@ public class ExitFragment extends Fragment {
                         //visitor.setOuttime(currentDateTimeString);
                         Lead lead = new Lead();
                         lead.setOuttime(currentDateTimeString);
-                        databaseVisitor.child(formattedDate).child("91lead").child(leadid).child("outtime").setValue(currentDateTimeString);
+                        databaseVisitor.child(leaddate).child("91lead").child(leadid).child("outtime").setValue(currentDateTimeString);
                         leads.clear();
                     }
                     else
@@ -379,7 +394,7 @@ public class ExitFragment extends Fragment {
             adapter = new ExitVendorAdapter(vendors, context);
 
             vendorid = getArguments().getString("vendorid");
-
+            vendordate = getArguments().getString("vendordate");
             recyclerView.addOnItemTouchListener(new MyTouchListener(getContext(), recyclerView, new MyTouchListener.OnTouchActionListener() {
                 @Override
                 public void onLeftSwipe(View view, int position) {
@@ -411,7 +426,7 @@ public class ExitFragment extends Fragment {
                         //visitor.setOuttime(currentDateTimeString);
                         Vendor vendor = new Vendor();
                         vendor.setOuttime(currentDateTimeString);
-                        databaseVisitor.child(formattedDate).child("vendor").child(vendorid).child("outtime").setValue(currentDateTimeString);
+                        databaseVisitor.child(vendordate).child("vendor").child(vendorid).child("outtime").setValue(currentDateTimeString);
                         vendors.clear();                    }
                     else
                     {
@@ -465,88 +480,7 @@ public class ExitFragment extends Fragment {
             });
 
         }
-        /*else if (i==4){
 
-            v = inflater.inflate(R.layout.visitor_fragment,container,false);
-            databaseVisitor = FirebaseDatabase.getInstance().getReference("courier");
-            recyclerView= v.findViewById(R.id.recyclerView);
-            Context context = getContext();
-
-            couriers = new ArrayList<Courier>();
-
-            Log.e(TAG, "onCreate: above llm");
-            LinearLayoutManager mlm = new LinearLayoutManager(getActivity());
-            recyclerView.setLayoutManager(mlm);
-            mlm.setReverseLayout(true);
-            mlm.setStackFromEnd(true);
-            final Context context1 = getContext();
-            MyFragment myFragment ;
-
-            adapter = new CourierAdapter(couriers);
-            recyclerView.addOnItemTouchListener(new MyTouchListener(getContext(), recyclerView, new MyTouchListener.OnTouchActionListener() {
-                @Override
-                public void onLeftSwipe(View view, int position) {
-
-                }
-
-                @Override
-                public void onRightSwipe(View view, int position) {
-                    Log.e(TAG, "onClick: r swiped");
-
-                }
-
-                @Override
-                public void onClick(View view, int position) {
-                    Log.e(TAG, "onClick: clicked");
-
-                }
-
-                @Override
-                public void onLongClick(View view, int position) {
-                    Log.e(TAG, "onClick:long clicked");
-
-
-                }
-            }));
-
-            recyclerView.setAdapter(adapter);
-            Log.e(TAG, "onCreate: below llm");
-
-
-            final View finalV = v;
-            databaseVisitor.addValueEventListener(new ValueEventListener() {
-
-
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                    progressBar = finalV.findViewById(R.id.progressBar);
-                    progressBar.setVisibility(VISIBLE);
-
-
-                    for (DataSnapshot visitorSnapshot : dataSnapshot.getChildren()) {
-                        Log.e(TAG, "onDataChange: adding visitor to visitors");
-
-                        Courier courier = visitorSnapshot.getValue(Courier.class);
-                        couriers.add(courier);
-
-                        adapter.notifyDataSetChanged();
-                        progressBar.setVisibility(View.GONE);
-
-                        Log.e("MainActivity", "onDataChange: added visitor to visitors");
-
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Toast.makeText(getActivity(), "Problem fetching databse", Toast.LENGTH_SHORT).show();
-
-                }
-            });
-
-
-        }*/
         return v;
 
     }

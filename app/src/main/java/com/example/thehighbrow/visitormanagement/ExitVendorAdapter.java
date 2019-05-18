@@ -45,8 +45,9 @@ class ExitVendorAdapter extends RecyclerView.Adapter<ExitVendorAdapter.ExitVendo
         exitVendorHolder.id.setText(currentVendor.getId());
         exitVendorHolder.outtime.setText(currentVendor.getOuttime());
         exitVendorHolder.intime.setText(currentVendor.getTime());
+        exitVendorHolder.date.setText(currentVendor.getDate());
         final String uid = exitVendorHolder.id.getText().toString();
-
+        final  String vendordate = exitVendorHolder.date.getText().toString();
         exitVendorHolder.photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,12 +55,13 @@ class ExitVendorAdapter extends RecyclerView.Adapter<ExitVendorAdapter.ExitVendo
 
                 Bundle bundle=new Bundle();
                 bundle.putString("vendorid",uid);
+                bundle.putString("vendordate",vendordate);
                 Fragment exitFragment = new ExitFragment();
 
                 Log.e(TAG, "onClick: "+uid);
                 exitFragment.setArguments(bundle);
                 Intent intent = new Intent(mContext.getApplicationContext(),exitActivity.class);
-                intent.putExtra("vendorid",uid);
+                intent.putExtras(bundle);
                 mContext.startActivity(intent);
 
             }
@@ -79,7 +81,7 @@ class ExitVendorAdapter extends RecyclerView.Adapter<ExitVendorAdapter.ExitVendo
         TextView id;
         TextView outtime;
         TextView intime;
-
+        TextView date;
         public ExitVendorHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.namefield);
@@ -87,6 +89,7 @@ class ExitVendorAdapter extends RecyclerView.Adapter<ExitVendorAdapter.ExitVendo
             id = itemView.findViewById(R.id.idfield);
             outtime = itemView.findViewById(R.id.outtimefield);
             intime = itemView.findViewById(R.id.intimefield);
+            date = itemView.findViewById(R.id.datefield);
         }
     }
 }

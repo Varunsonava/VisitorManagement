@@ -145,7 +145,7 @@ public class MyFragment extends Fragment {
                     progressBar = finalV.findViewById(R.id.progressBar);
                     progressBar.setVisibility(VISIBLE);
                     for (DataSnapshot visitorSnapshot : dataSnapshot.getChildren()) {
-                        if (visitorSnapshot.hasChild(" dayVisitor")){
+                        if (visitorSnapshot.hasChild("dayVisitor")){
                             for (DataSnapshot dataSnapshot1:visitorSnapshot.child("dayVisitor").getChildren()){
 
                                 Log.e(TAG, "onDataChange: adding visitor to visitors");

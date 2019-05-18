@@ -74,6 +74,7 @@ public class visitorDetail extends AppCompatActivity {
     DatabaseReference databaseVisitor;
     TextView submit;
     AutoCompleteTextView vhost;
+    String formattedDate;
 
     Calendar calendar;
     String photoUrl;
@@ -102,7 +103,7 @@ public class visitorDetail extends AppCompatActivity {
 
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        String formattedDate = dateFormat.format(c);
+        formattedDate = dateFormat.format(c);
 
         databaseVisitor = FirebaseDatabase.getInstance().getReference("Noida Sec1/"+formattedDate+"/visitor");
 
@@ -271,7 +272,7 @@ public class visitorDetail extends AppCompatActivity {
                 Date = DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(new Date());
                 Log.e("visitorDetail", "addVisitor: TIME = "+currentDateTimeString+"DATE = "+Date);
 
-            Visitor visitor = new Visitor(vname,vcontact,ahost,durl,currentDateTimeString,"",Date,vcompanions,id);
+            Visitor visitor = new Visitor(vname,vcontact,ahost,durl,currentDateTimeString,"",formattedDate,vcompanions,id);
 
 
                 databaseVisitor.child(id).setValue(visitor);

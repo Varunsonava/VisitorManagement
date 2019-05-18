@@ -56,6 +56,8 @@ public class vendorDetail extends AppCompatActivity implements AdapterView.OnIte
     private StorageReference mStorage;
     private ProgressDialog mProgress;
     String downloadUrl;
+    String formattedDate;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +72,7 @@ public class vendorDetail extends AppCompatActivity implements AdapterView.OnIte
 
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        String formattedDate = dateFormat.format(c);
+        formattedDate = dateFormat.format(c);
         databaseVisitor = FirebaseDatabase.getInstance().getReference("Noida Sec1/"+formattedDate+"/vendor");
 
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -149,7 +151,7 @@ public class vendorDetail extends AppCompatActivity implements AdapterView.OnIte
             String Date = DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(new Date()).toString();
             Log.e("visitorDetail", "addVisitor: TIME = "+currentDateTimeString+"DATE = "+Date);
 //            Visitor visitor = new Visitor(dname,dcontact,dhost,photoUrl);
-            Vendor vendor = new Vendor(dname,dcontact,host,vurl,currentDateTimeString, Date,id,"");
+            Vendor vendor = new Vendor(dname,dcontact,host,vurl,currentDateTimeString, formattedDate,id,"");
 
 //            databaseVisitor.child(id).setValue(visitor);
             databaseVisitor.child(id).setValue(vendor);

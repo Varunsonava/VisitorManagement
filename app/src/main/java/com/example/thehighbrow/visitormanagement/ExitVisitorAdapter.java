@@ -50,7 +50,11 @@ public class ExitVisitorAdapter extends RecyclerView.Adapter<ExitVisitorAdapter.
         exitHolder.id.setText(currentdayvisitor.getId());
         exitHolder.outtime.setText(currentdayvisitor.getOuttime());
         exitHolder.intime.setText(currentdayvisitor.getTime());
+        exitHolder.date.setText(currentdayvisitor.getDate());
         final String uid = exitHolder.id.getText().toString();
+
+         final String udate = exitHolder.date.getText().toString();
+
 
         exitHolder.photo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,12 +63,17 @@ public class ExitVisitorAdapter extends RecyclerView.Adapter<ExitVisitorAdapter.
 
                 Bundle bundle=new Bundle();
                 bundle.putString("id",uid);
+                bundle.putString("date",udate);
+
                 Fragment exitFragment = new ExitFragment();
 
-                Log.e(TAG, "onClick: "+uid);
+                Log.e(TAG, "onClick: ID and DATE "+uid+udate);
+
                 exitFragment.setArguments(bundle);
                 Intent intent = new Intent(mContext.getApplicationContext(),exitActivity.class);
-                intent.putExtra("id",uid);
+            //    intent.putExtra("id",uid);
+              //  intent.putExtra("date",udate);
+                intent.putExtras(bundle);
                 mContext.startActivity(intent);
 
             }
@@ -85,6 +94,7 @@ public class ExitVisitorAdapter extends RecyclerView.Adapter<ExitVisitorAdapter.
         TextView id;
         TextView outtime;
         TextView intime;
+        TextView date;
 
         public ExitVisitorHolder(@NonNull View itemView) {
             super(itemView);
@@ -93,6 +103,8 @@ public class ExitVisitorAdapter extends RecyclerView.Adapter<ExitVisitorAdapter.
             id = itemView.findViewById(R.id.idfield);
             outtime = itemView.findViewById(R.id.outtimefield);
             intime = itemView.findViewById(R.id.intimefield);
+            date = itemView.findViewById(R.id.datefield);
+
         }
     }
 }

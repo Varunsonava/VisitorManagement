@@ -48,7 +48,11 @@ public class ExitLeadAdapter extends RecyclerView.Adapter<ExitLeadAdapter.ExitLe
         exitLeadHolder.id.setText(currentlead.getId());
         exitLeadHolder.outtime.setText(currentlead.getOuttime());
         exitLeadHolder.intime.setText(currentlead.getTime());
+        exitLeadHolder.date.setText(currentlead.getDate());
+
         final String uid = exitLeadHolder.id.getText().toString();
+        final String leaddate = exitLeadHolder.date.getText().toString();
+
 
         exitLeadHolder.photo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,12 +61,14 @@ public class ExitLeadAdapter extends RecyclerView.Adapter<ExitLeadAdapter.ExitLe
 
                 Bundle bundle=new Bundle();
                 bundle.putString("leadid",uid);
+                bundle.putString("leaddate",leaddate);
                 Fragment exitFragment = new ExitFragment();
 
                 Log.e(TAG, "onClick: "+uid);
                 exitFragment.setArguments(bundle);
                 Intent intent = new Intent(mContext.getApplicationContext(),exitActivity.class);
-                intent.putExtra("leadid",uid);
+           //     intent.putExtra("leadid",uid);
+                intent.putExtras(bundle);
                 mContext.startActivity(intent);
 
             }
@@ -83,6 +89,8 @@ public class ExitLeadAdapter extends RecyclerView.Adapter<ExitLeadAdapter.ExitLe
         TextView id;
         TextView outtime;
         TextView intime;
+        TextView date;
+
 
         public ExitLeadHolder(@NonNull View itemView) {
             super(itemView);
@@ -91,6 +99,8 @@ public class ExitLeadAdapter extends RecyclerView.Adapter<ExitLeadAdapter.ExitLe
             id = itemView.findViewById(R.id.idfield);
             outtime = itemView.findViewById(R.id.outtimefield);
             intime = itemView.findViewById(R.id.intimefield);
+            date = itemView.findViewById(R.id.datefield);
+
         }
     }
 }

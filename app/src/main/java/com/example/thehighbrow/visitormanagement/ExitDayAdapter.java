@@ -46,8 +46,10 @@ public class ExitDayAdapter extends RecyclerView.Adapter<ExitDayAdapter.ExitDayH
         exitDayHolder.name.setText(currentdayvisitor.getName());
         exitDayHolder.id.setText(currentdayvisitor.getId());
         exitDayHolder.outtime.setText(currentdayvisitor.getOuttime());
+        exitDayHolder.date.setText(currentdayvisitor.getDate());
         exitDayHolder.time.setText(currentdayvisitor.getTime());
         final String uid = exitDayHolder.id.getText().toString();
+        final String daydate = exitDayHolder.date.getText().toString();
 
         exitDayHolder.photo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,12 +58,13 @@ public class ExitDayAdapter extends RecyclerView.Adapter<ExitDayAdapter.ExitDayH
 
                 Bundle bundle=new Bundle();
                 bundle.putString("dayid",uid);
+                bundle.putString("daydate",daydate);
                 Fragment exitFragment = new ExitFragment();
 
                 Log.e(TAG, "onClick: "+uid);
                 exitFragment.setArguments(bundle);
                 Intent intent = new Intent(mContext.getApplicationContext(),exitActivity.class);
-                intent.putExtra("dayid",uid);
+                intent.putExtras(bundle);
                 mContext.startActivity(intent);
 
             }
@@ -82,6 +85,7 @@ public class ExitDayAdapter extends RecyclerView.Adapter<ExitDayAdapter.ExitDayH
         TextView id;
         TextView outtime;
         TextView time;
+        TextView date;
 
         public ExitDayHolder(@NonNull View itemView) {
             super(itemView);
@@ -90,6 +94,7 @@ public class ExitDayAdapter extends RecyclerView.Adapter<ExitDayAdapter.ExitDayH
             id = itemView.findViewById(R.id.idfield);
             outtime = itemView.findViewById(R.id.outtimefield);
             time = itemView.findViewById(R.id.intimefield);
+            date = itemView.findViewById(R.id.datefield);
         }
     }
 }

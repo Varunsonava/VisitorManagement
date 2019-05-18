@@ -55,6 +55,8 @@ public class leadDetail extends AppCompatActivity {
     DatabaseReference databaseVisitor;
     TextView submit;
     Calendar calendar;
+    String formattedDate;
+
     String photoUrl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +75,7 @@ public class leadDetail extends AppCompatActivity {
 
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        String formattedDate = dateFormat.format(c);
+        formattedDate = dateFormat.format(c);
         databaseVisitor = FirebaseDatabase.getInstance().getReference("Noida Sec1/"+formattedDate+"/91lead");
 
 
@@ -151,7 +153,7 @@ public class leadDetail extends AppCompatActivity {
 
             String Date = DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(new Date()).toString();
             Log.e("visitorDetail", "addVisitor: TIME = "+currentDateTimeString+"DATE = "+Date);
-            Lead lead = new Lead(dname,dcontact,demail,dreach,durl, currentDateTimeString,Date,id,"");
+            Lead lead = new Lead(dname,dcontact,demail,dreach,durl, currentDateTimeString,formattedDate,id,"");
 
             databaseVisitor.child(id).setValue(lead);
 
